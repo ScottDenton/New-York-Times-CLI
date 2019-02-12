@@ -10,7 +10,7 @@ search = CLI::Search.search_loop
 
 
 unless search[:start].nil?
-  date_query = "&facet_field=day_of_week&facet=true&begin_date=#{search[:start]}&end_date=#{search[:end]}"
+  date_query = "&facet_field=day_of_week&facet=true&begin_date=#{search[:start_date]}&end_date=#{search[:end_date]}"
 end
 # binding.pry
 
@@ -19,5 +19,16 @@ end
   hash = JSON.parse(string)
 
   article = hash["response"]['docs'].first
-   puts '.1 ' + article['snippet']
-   puts '.2 ' + article['web_url']
+binding.pry
+   puts 'Snippet: ' + article['snippet']
+   puts 'URL: ' + article['web_url']
+   puts''
+   puts 'Enter "open" if you would like to open the article in your browser or "save" to save this search to your profile'
+   open = gets.chomp.downcase
+   if open == 'open'
+    Launchy.open(article['web_url'])
+  elsif open == "save"
+    puts "This article has been saved to your profile"
+  else
+    puts "goodbye"
+  end
