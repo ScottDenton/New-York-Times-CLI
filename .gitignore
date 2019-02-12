@@ -12,3 +12,5 @@ tmp
 
 db/*.db
 db/schema.rb
+
+config/.keys.rb
