@@ -1,23 +1,23 @@
 require_relative '../config/environment'
 require_relative '../config/.keys'
 require 'pry'
-require 'launchy'
+# require 'launchy'
 
 
 
-search = CLI::Search.search_loop
+# search = CLI::Search.search_loop
+# query = Query.build_query(search)
+# json = Query.request(query)
+# parsed = Query.parse(json)
+# articles = parsed["response"]["docs"]
+# puts JSON.pretty_generate articles.first
 
-
-
-unless search[:start].nil?
-  date_query = "&facet_field=day_of_week&facet=true&begin_date=#{search[:start]}&end_date=#{search[:end]}"
-end
-# binding.pry
-
-  string = RestClient.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=#{search[:subject]}&api-key=#{NYT_KEY}#{date_query}")
-
-  hash = JSON.parse(string)
-
-  article = hash["response"]['docs'].first
-   puts '.1 ' + article['snippet']
-   puts '.2 ' + article['web_url']
+# subject: "baseball, "
+# category: "Sports"
+# start_date: 20020101, end_date: 20020101)
+query = Query.build_query(subject: "Washington", category: "Politics", start_date: 20110101, end_date: 20130101)
+json = Query.request(query)
+parsed = Query.parse(json)
+articles = parsed["response"]["docs"]
+articles.each {|article| puts article["snippet"]}
+ articles.first["snippet"] #JSON.pretty_generate
