@@ -24,33 +24,31 @@ class CLI
            break
          else
            puts "What criteria would you like to add?"
-           puts "Location - Date - Keyword - Category"
+           puts "Headline - Date - Keyword - Category"
            criteria = gets.chomp.downcase
 
            case criteria
-           when 'location'
-             self.location_search
+           when 'headline'
+            search_hash[:headline] =  self.headline_search
            when 'date'
              dates = self.date_search
              search_hash[:start] = dates[0]
              search_hash[:end] = dates[1]
            when 'keyword'
-             self.keyword_search
+             search_hash[:keyword] = self.keyword_search
            when 'category'
-             self.category_search
+             search_hash[:category] = self.category_search
            else
              puts "Sorry we did not recogise your input"
-           end
-
-         end
-
-
-       end
+           end #end of switch statement
+         end #end of if statement
+       end #end of while loop
        search_hash
-     end
+     end #end of search class
 
-     def self.location_search
-       puts 'location search'
+     def self.headline_search
+       puts 'What headline would you like to search for ?'
+       headline = gets.chomp.downcase
      end
 
      def self.date_search
@@ -59,15 +57,16 @@ class CLI
        puts "What end date would you like ? yyyymmdd"
        end_date = gets.chomp.downcase
        date = [start_date, end_date]
-
      end
 
      def self.keyword_search
-       puts 'keyword search'
+       puts "What keyword would you like to search by ?"
+       keyword = gets.chomp.downcase
      end
 
      def self.category_search
-       puts 'category search'
+       puts 'What category would you like to search ?'
+       category = gets.chomp.downcase
      end
 
      def self.subject
@@ -85,6 +84,7 @@ class CLI
         date = nil
        end
      end
+
    end #end of search class
 
 end #end of CLI class
