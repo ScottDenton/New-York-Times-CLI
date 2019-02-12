@@ -5,3 +5,5 @@ gem "sinatra-activerecord"
 gem "sqlite3"
 gem "pry"
 gem "require_all"
+gem 'rest-client', '~> 1.8'
+gem 'launchy'
