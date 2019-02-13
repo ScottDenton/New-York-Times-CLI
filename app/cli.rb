@@ -78,19 +78,16 @@ class CLI
     articles = parsed["response"]["docs"]
 
     self.list_articles(articles)
-    self.start
+    self.options
   end
 
   def self.list_articles(articles)
-    # self.new_page
-    # binding.pry
     for article in articles
       parsed_article = Article.parse(article)
       parsed_article.print
-      # binding.pry
       parsed_article.open if self.yes_no("Open Article")
-      parsed_article.save_article if self.yes_no("Save Article")
-      binding.pry
+      parsed_article.save_article if self.yes_no("favourited Article")
+
       break if self.yes_no("Exit")
     end
   end
@@ -110,6 +107,7 @@ class CLI
   end
 
   def self.options
+    self.new_page
     puts "What would you like to do, please enter the corresponding number. "
     puts "1. Search for an article"
     puts "2. Search your favourited articles"
@@ -128,6 +126,7 @@ class CLI
        puts "Sorry we did not recognise your input"
        self.options
      end
+     self.options
   end
 
 end #end of CLI class
