@@ -12,12 +12,15 @@ attr_accessor :active_user
     @@active_user
   end
 
-  def self.intro
+  def login_signup
     if self.yes_no("Are you already a member")
       User.login
     else
       User.signup_user
     end
+  end
+
+  def self.intro
   end
 
   def self.help

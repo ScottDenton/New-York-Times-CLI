@@ -4,4 +4,4 @@ require 'pry'
 require 'launchy'
 
 CLI.intro
-# CLI.start
+CLI.start
