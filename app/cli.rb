@@ -41,6 +41,7 @@ attr_accessor :active_user
     else
       User.signup_user
     end
+  end
 
   def self.help
   end

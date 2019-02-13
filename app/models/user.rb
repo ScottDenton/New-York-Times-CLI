@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   def self.signup_user
     puts "Please enter your name to signup"
-    name = gets.chomp.downcase
+    name = CLI.gets_with_quit
     if self.check_login(name)
       puts "Sorry that name is already taken :("
       self.signup_user
@@ -33,10 +33,9 @@ class User < ActiveRecord::Base
 
   def self.login
     puts "Please enter your name"
-    name = gets.chomp.downcase
+    name = CLI.gets_with_quit
     user = self.find_user(name)
     CLI.active_user = user
-    binding.pry
   end
 
 end
