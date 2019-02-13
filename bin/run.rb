@@ -1,8 +1,7 @@
 require_relative '../config/environment'
 require_relative '../config/.keys'
 require 'pry'
-# require 'launchy'
-
+require 'launchy'
 
 
 # search = CLI::Search.search_loop
@@ -21,3 +20,14 @@ parsed = Query.parse(json)
 articles = parsed["response"]["docs"]
 articles.each {|article| puts article["snippet"]}
  articles.first["snippet"] #JSON.pretty_generate
+
+ puts 'Enter "open" if you would like to open the article in your browser or "save" to save this search to your profile'
+   open = gets.chomp.downcase
+   if open == 'open'
+    Launchy.open(article['web_url'])
+  elsif open == "save"
+    puts "This article has been saved to your profile"
+  else
+    puts "goodbye"
+  end
+
