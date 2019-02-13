@@ -5,7 +5,7 @@ class Article < ActiveRecord::Base
 
   def print
     system('clear')
-    puts "\t \t \t Title: " + self.headline unless self.headline.nil?
+    puts "\tTitle: #{self.headline}\n" unless self.headline.nil?
     puts self.snippet unless self.snippet.nil?
     puts 'Source : ' + self.source unless self.source.nil?
     puts 'Credit: ' + self.credit unless self.credit.nil?
