@@ -18,3 +18,29 @@ To do list
 Bonus stuff
   - prettifying input
   - gems for menus etc
+
+* start new branch pperson
+* save search query in articles or have save title option
+* input validation for dates
+* global exit
+* flesh out user class
+* open saved articles
+* break out Search class
+* flesh out CLI methods
+* error handling, unsuccessful API request
+
+aesthetic
+* intro page with ASCII art
+
+final stuff
+* gitignore schema
+* prettifying
+* refactor/clean
+* comment code
+* proper readme
+* prettify presentation
+
+
+* web scrape article
+* delete/rename article
+* test cases?

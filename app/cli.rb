@@ -15,7 +15,19 @@ class CLI
 
    end
 
-   def list_articles(articles)
+   def self.start
+     search = CLI::Search.search_loop
+
+     query = Query.build_query(search)
+     json = Query.request(query)
+     parsed = Query.parse(json)
+     articles = parsed["response"]["docs"]
+
+     CLI.list_articles(articles)
+     self.start
+   end
+
+   def self.list_articles(articles)
      articles.each do |article|
        parsed_article = Article.parse(article)
        parsed_article.print
@@ -31,6 +43,12 @@ class CLI
        if save == 'y'
          parsed_article.save
        end
+
+       # puts "Next article (y/n)"
+       # next = gets.chomp.downcase
+       # # if next == 'y'
+       # # end
+
      end
    end
 
