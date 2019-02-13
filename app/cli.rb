@@ -47,7 +47,6 @@ class CLI
   end
 
   def self.login_signup
-
     if self.yes_no("Are you already a member")
       User.login
     else
@@ -60,7 +59,8 @@ class CLI
     puts self.banner
     self.header
     self.login_signup
-    self.start
+    self.options
+    # self.start
   end
 
   def self.help
@@ -108,6 +108,7 @@ class CLI
 
       parsed_article.open if self.yes_no("Open Article")
       parsed_article.save_article if self.yes_no("Save Article")
+      binding.pry
       break if self.yes_no("Exit")
     end
   end
@@ -127,4 +128,26 @@ class CLI
       return yes_no(message)
     end
   end
+
+  def self.options
+    puts "What would you like to do, please enter the corresponding number. "
+    puts "1. Search for an article"
+    puts "2. Search your favourited articles"
+    puts "3. Search all but your favourited articles"
+    option = gets.chomp
+    case option
+    when '1'
+       self.start
+     when '2'
+       self.active_user.list_own_articles
+     when '3'
+       self.active_user.all_other_articles
+     when 'exit' || 'quit'
+       exit
+     else
+       puts "Sorry we did not recognise your input"
+       self.options
+     end
+  end
+
 end #end of CLI class

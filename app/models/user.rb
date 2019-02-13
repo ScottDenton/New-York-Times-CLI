@@ -3,11 +3,34 @@ class User < ActiveRecord::Base
   has_many :articles, through: :user_articles
 
   def list_own_articles
+    CLI.active_user.articles.map do |article|
+      system('clear')
+      puts ''
+      puts "Your title: " + article.users_title
+      puts "Headline: " + article.headline
+      puts ''
+      puts article.snippet
+      puts ''
+      article.open if CLI.yes_no("Open Article")
 
+      article.delete if CLI.yes_no("Un-Favourite this Article")
+
+    end
+    puts "That was the last of your articles"
+    puts ''
+    CLI.options
   end
 
   def find_article
 
+  end
+
+  def all_other_articles
+    users_articles = CLI.active_user.articles.map{|article| article.id}
+    all_articles = Article.all.map{|article| article.id}
+    answer = users_articles + all_articles
+    uniq = answer - (users_articles & all_articles)
+     Article.all.select{|article| uniq.include?(article.id)}
   end
 
   def self.find_user(name)

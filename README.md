@@ -28,6 +28,7 @@ Bonus stuff
 * break out Search class
 * flesh out CLI methods
 * error handling, unsuccessful API request
+* when opening still give option to save
 
 aesthetic
 * intro page with ASCII art
