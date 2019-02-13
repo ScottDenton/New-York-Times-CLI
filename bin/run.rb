@@ -3,5 +3,5 @@ require_relative '../config/.keys'
 require 'pry'
 require 'launchy'
 
-CLI.start
-
+CLI.intro
+# CLI.start
