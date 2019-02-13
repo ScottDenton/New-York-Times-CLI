@@ -28,6 +28,13 @@ class CLI
   end
 
   def self.list_topics
+    topics = ["Adventure Sports", "Arts & Leisure", "Arts", "Automobiles", 
+              "Business", "Culture", "Editorial", "Entrepreneurs", "Environment", 
+              "Fashion & Style", "Financial", "Food", "Foreign", "Health & Fitness", 
+              "Home & Garden", "Movies", "Museums", "Politics", "Science", "Sports", 
+              "Technology", "Travel", "Weather", "World"]
+    topics.each_with_index do |v, i|
+    end 
   end
 
   def self.gets_with_quit
