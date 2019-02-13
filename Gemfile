@@ -7,3 +7,4 @@ gem "pry"
 gem "require_all"
 gem 'rest-client', '~> 1.8'
 gem 'launchy'
+gem 'tty-prompt'
