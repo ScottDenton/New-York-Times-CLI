@@ -12,13 +12,24 @@ class User < ActiveRecord::Base
     CLI.options
   end
 
+  def list
+    CLI.active_user.reload
+    list_message = "Which article would you like to open"
+    articles = self.articles
+    options = articles.map{|article| article.users_title}
+    choice = PROMPT.select(list_message, options)
+    articles[options.index(choice)].article_options
+  end
+
+
+
+
 
   def all_other_articles
     users_articles = CLI.active_user.articles.map{|article| article.id}
     all_articles = Article.all.map{|article| article.id}
     answer = users_articles + all_articles
     uniq = answer - (users_articles & all_articles)
-
     Article.all.select{|article| uniq.include?(article.id)}
     .map do |article|
       CLI.new_page

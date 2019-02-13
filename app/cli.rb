@@ -108,17 +108,24 @@ class CLI
 
   def self.options
     self.new_page
-    puts "What would you like to do, please enter the corresponding number. "
-    puts "1. Search for an article"
-    puts "2. Search your favourited articles"
-    puts "3. Search all but your favourited articles"
-    option = gets.chomp
-    case option
-    when '1'
+    message = "What would you like to do. "
+    options = ["Search","Favourited articles", "Other articles"]
+    choice = PROMPT.select(message,options)
+    case options.index(choice)
+    when 0
        self.start
-     when '2'
-       self.active_user.list_own_articles
-     when '3'
+     when 1
+        self.active_user.list unless self.active_user.articles.empty?
+        message =  "Sorry there are currently no saved articles. Have a search to find some new ones"
+        options = ["Go to search", "Go back"]
+        choice = PROMPT.select(message, options)
+        case options.index(choice)
+        when 0
+          self.start
+        when 1
+          self.options
+        end 
+     when 2
        self.active_user.all_other_articles
      when 'exit' || 'quit'
        exit

@@ -1,9 +1,7 @@
 class Article < ActiveRecord::Base
   has_many :user_articles
   has_many :users, through: :user_articles
-
   serialize :search_query
-
 
   def print
     system('clear')
@@ -15,7 +13,7 @@ class Article < ActiveRecord::Base
   end
 
   def open
-     Launchy.open(self.url)
+    Launchy.open(self.url)
   end
 
   def self.parse(article)
@@ -30,15 +28,37 @@ class Article < ActiveRecord::Base
     new_article
   end
 
+  def article_options
+    list_message = "What would you like to do to your article?"
+    options = ["Open", "rename", "Un-favourite", "Back to menu"]
+    choice = PROMPT.select(list_message, options)
+    case options.index(choice)
+    when 0
+       self.open
+     when 1
+       self.name_article
+     when 2
+       self.delete
+     when 3
+       CLI.options
+    end
+     CLI.options
+   end
 
-def save_article
-  puts "What title would you like to give this article"
-  title = gets.chomp
-  self.users_title = title
-  self.users << CLI.active_user
-  self.save
 
-end
+
+  def name_article
+    puts "What title would you like to give this article"
+    title = gets.chomp
+    self.users_title = title
+
+  end
+
+  def save_article
+    self.name_article
+    self.users << CLI.active_user
+    self.save
+  end
 
 
   def self.show_all_favourited
@@ -47,4 +67,5 @@ end
     end
   end
 
-end
+
+  end# end of class
