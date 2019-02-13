@@ -1,0 +1,28 @@
+{"web_url"=>
+   "https://www.nytimes.com/reuters/2019/02/11/business/11reuters-facebook-encryption.html",
+  "snippet"=>
+   "A U.S. judge on Monday rejected a bid by two civil rights groups that had sought to force the release of documents describing a secret U.S. government effort to compel Facebook Inc to decrypt voice conversations between users on its Messenger app.",
+  "lead_paragraph"=>
+   "A U.S. judge on Monday rejected a bid by two civil rights groups that had sought to force the release of documents describing a secret U.S. government effort to compel Facebook Inc to decrypt voice conversations between users on its Messenger app.",
+  "blog"=>{},
+  "source"=>"Reuters",
+  "multimedia"=>[],
+  "headline"=>
+   {"main"=>"U.S. Judge Keeps Documents Secret in Facebook Encryption Case",
+    "kicker"=>nil,
+    "content_kicker"=>nil,
+    "print_headline"=>"U.S. Judge Keeps Documents Secret in Facebook Encryption Case",
+    "name"=>nil,
+    "seo"=>nil,
+    "sub"=>nil},
+  "keywords"=>[],
+  "pub_date"=>"2019-02-12T00:10:58+0000",
+  "document_type"=>"article",
+  "news_desk"=>"None",
+  "section_name"=>"Business",
+  "byline"=>{"original"=>"By REUTERS", "person"=>[], "organization"=>"REUTERS"},
+  "type_of_material"=>"News",
+  "_id"=>"5c620f6b00a1bc2872ea1a10",
+  "word_count"=>389,
+  "score"=>0.0,
+  "uri"=>"nyt://article/4fed32e4-b233-506c-9ced-edfc8c8fef38"}
