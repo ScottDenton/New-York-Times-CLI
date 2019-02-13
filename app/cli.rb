@@ -55,12 +55,12 @@ class CLI
     end
   end
 
+
   def self.intro
     puts self.banner
     self.header
     self.login_signup
     self.start
-
   end
 
   def self.help
