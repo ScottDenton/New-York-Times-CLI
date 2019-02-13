@@ -1,9 +1,11 @@
 class CreateArticlesTable < ActiveRecord::Migration[5.0]
   def change
     create_table :articles do |t|
-      t.string :title
+      t.string :headline
       t.text :snippet
-      t.text :search_query
+      t.text :source
+      t.text :credit
+      t.text :url
     end
   end
 end
