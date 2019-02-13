@@ -1,5 +1,7 @@
 class CLI
 
+  def main_loop
+  end
    def intro
 
 
@@ -11,6 +13,25 @@ class CLI
 
    def list_topics
 
+   end
+
+   def list_articles(articles)
+     articles.each do |article|
+       parsed_article = Article.parse(article)
+       parsed_article.print
+
+       puts 'Open Article (y/n)?'
+       open = gets.chomp.downcase
+       if open == 'y'
+         parsed_article.open
+       end
+
+       puts 'Save Article (y/n)?'
+       save = gets.chomp.downcase
+       if save == 'y'
+         parsed_article.save
+       end
+     end
    end
 
    class Search
@@ -26,7 +47,7 @@ class CLI
          else
            puts ''
            puts "What criteria would you like to add?"
-           puts "Headline - Date - Keyword - Category"
+           puts "Headline - Date - Keyword"
            criteria = gets.chomp.downcase
 
            case criteria
@@ -38,13 +59,14 @@ class CLI
              search_hash[:end_date] = dates[1]
            when 'keyword'
              search_hash[:keyword] = self.keyword_search
-           when 'category'
-             search_hash[:category] = self.category_search
+           # when 'category'
+           #   search_hash[:category] = self.category_search
            else
              puts "Sorry we did not recogise your input"
            end #end of switch statement
          end #end of if statement
        end #end of while loop
+       # binding.pry
        search_hash
      end #end of search class
 
@@ -70,11 +92,11 @@ class CLI
        keyword = gets.chomp.downcase
      end
 
-     def self.category_search
-       puts''
-       puts 'What category would you like to search ?'
-       category = gets.chomp.downcase
-     end
+     # def self.category_search
+     #   puts''
+     #   puts 'What category would you like to search ?'
+     #   category = gets.chomp.downcase
+     # end
 
      def self.subject
        puts''
