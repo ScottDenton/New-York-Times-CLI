@@ -1,32 +1,27 @@
 class Search
-  def self.search_loop
+  def self.build_search
     search_hash = {}
     search_hash[:subject] = self.subject
     while true
       puts''
-      puts "Would you like to refine your search ? (y/n)"
-      refine = gets.chomp.downcase
-      if  refine == 'n' || refine.empty?
+      unless CLI.yes_no("Would you like to refine your search")
         break
       else
-        puts ''
-        puts "What criteria would you like to add?"
+        puts "\nWhat criteria would you like to add?"
         puts "Headline - Date - Keyword"
         criteria = gets.chomp.downcase
 
         case criteria
-        when 'headline'
-         search_hash[:headline] =  self.headline_search
-        when 'date'
-          dates = self.date_search
-          search_hash[:start_date] = dates[0]
-          search_hash[:end_date] = dates[1]
-        when 'keyword'
-          search_hash[:keyword] = self.keyword_search
-        # when 'category'
-        #   search_hash[:category] = self.category_search
-        else
-          puts "Sorry we did not recogise your input"
+          when 'headline'
+          search_hash[:headline] =  self.headline_search
+          when 'date'
+            dates = self.date_search
+            search_hash[:start_date] = dates[:start_date]
+            search_hash[:end_date] = dates[:end_date]
+          when 'keyword'
+            search_hash[:keyword] = self.keyword_search
+          else
+            puts "Sorry we did not recogise your input"
         end #end of switch statement
       end #end of if statement
     end #end of while loop
@@ -37,39 +32,28 @@ class Search
   def self.subject
     puts''
       puts "What subject would you like to search for ?"
-      subject = gets.chomp.downcase
+      subject = CLI.gets_with_quit
   end
 
   def self.headline_search
     puts''
     puts 'What headline would you like to search for ?'
-    headline = gets.chomp.downcase
+    headline = CLI.gets_with_quit
   end
 
   def self.date_search
     puts''
     puts "What start date would you like ? yyyymmdd"
-    start_date = gets.chomp.downcase
+    start_date = CLI.gets_with_quit
     puts''
     puts "What end date would you like ? yyyymmdd"
-    end_date = gets.chomp.downcase
-    date = [start_date, end_date]
+    end_date = CLI.gets_with_quit
+    {start_date: start_date, end_date: end_date}
   end
 
   def self.keyword_search
     puts''
     puts "What keyword would you like to search by ?"
-    keyword = gets.chomp.downcase
+    keyword = CLI.gets_with_quit
   end
-
-  # def self.category_search
-  #   puts''
-  #   puts 'What category would you like to search ?'
-  #   category = gets.chomp.downcase
-  # end
-
-
-
-
-
 end
