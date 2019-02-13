@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20190212233732) do
     t.text   "source"
     t.text   "credit"
     t.text   "url"
+    t.string "users_title"
   end
 
   create_table "user_articles", force: :cascade do |t|

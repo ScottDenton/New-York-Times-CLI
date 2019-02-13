@@ -26,8 +26,7 @@ class User < ActiveRecord::Base
       self.signup_user
     else
       user =  User.create(name: name)
-      puts "Thank You, now we will have you sign in"
-      self.login
+      CLI.active_user = user
     end
   end
 
@@ -36,7 +35,7 @@ class User < ActiveRecord::Base
     name = gets.chomp.downcase
     user = self.find_user(name)
     CLI.active_user = user
-    binding.pry
+
   end
 
 end

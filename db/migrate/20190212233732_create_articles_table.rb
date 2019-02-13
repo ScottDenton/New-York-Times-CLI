@@ -6,6 +6,7 @@ class CreateArticlesTable < ActiveRecord::Migration[5.0]
       t.text :source
       t.text :credit
       t.text :url
+      t.string :users_title
     end
   end
 end
