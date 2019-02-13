@@ -6,7 +6,7 @@ class Search
       puts''
       puts "Would you like to refine your search ? (y/n)"
       refine = gets.chomp.downcase
-      if refine == 'n'
+      if  refine == 'n' || refine.empty?
         break
       else
         puts ''
@@ -33,6 +33,12 @@ class Search
     # binding.pry
     search_hash
   end #end of search class
+
+  def self.subject
+    puts''
+      puts "What subject would you like to search for ?"
+      subject = gets.chomp.downcase
+  end
 
   def self.headline_search
     puts''
@@ -62,12 +68,8 @@ class Search
   #   category = gets.chomp.downcase
   # end
 
-  def self.subject
-    puts''
-      puts "What subject would you like to search for ?"
-      subject = gets.chomp.downcase
-  end
 
 
 
-end 
+
+end

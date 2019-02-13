@@ -33,6 +33,7 @@ class CLI
     parsed = Query.parse(json)
     articles = parsed["response"]["docs"]
 
+
     CLI.list_articles(articles)
     self.start
   end
@@ -45,6 +46,7 @@ class CLI
       parsed_article.open if self.yes_no("Open Article")
 
       parsed_article.save if self.yes_no("Save Article")
+
 
       exit if self.yes_no("Exit")
     end
