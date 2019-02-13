@@ -14,31 +14,33 @@ class User < ActiveRecord::Base
 
   def list
     CLI.active_user.reload
-    list_message = "Which article would you like to open"
+    message = "Which article would you like to open"
     articles = self.articles
+    self.list_articles(articles, message)
+    # options = articles.map{|article| article.users_title}
+    # choice = PROMPT.select(list_message, options)
+    # articles[options.index(choice)].article_options
+  end
+
+  def list_articles(articles, message)
     options = articles.map{|article| article.users_title}
-    choice = PROMPT.select(list_message, options)
+    choice = PROMPT.select(message, options)
     articles[options.index(choice)].article_options
   end
 
 
 
-
-
   def all_other_articles
+    CLI.active_user.reload
     users_articles = CLI.active_user.articles.map{|article| article.id}
-    all_articles = Article.all.map{|article| article.id}
-    answer = users_articles + all_articles
-    uniq = answer - (users_articles & all_articles)
-    Article.all.select{|article| uniq.include?(article.id)}
-    .map do |article|
-      CLI.new_page
-      puts article.users_title
-      puts article.snippet
-      article.open if CLI.yes_no("Open Article")
-      CLI.active_user.articles << article if CLI.yes_no("Favourite Article")
-    end
 
+    all_articles = Article.all.map{|article| article.id}
+
+    uniq = all_articles - users_articles
+
+    articles = Article.all.select{|article| uniq.include?(article.id)}
+    message = "Which article would you like to open"
+    list_articles(articles, message )
   end
 
   def self.find_user(name)

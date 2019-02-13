@@ -107,6 +107,7 @@ class CLI
   end
 
   def self.options
+    CLI.active_user.reload
     self.new_page
     message = "What would you like to do. "
     options = ["Search","Favourited articles", "Other articles"]
@@ -124,7 +125,7 @@ class CLI
           self.start
         when 1
           self.options
-        end 
+        end
      when 2
        self.active_user.all_other_articles
      when 'exit' || 'quit'

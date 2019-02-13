@@ -28,9 +28,13 @@ class Article < ActiveRecord::Base
     new_article
   end
 
+  def display_article
+
+  end
+
   def article_options
     list_message = "What would you like to do to your article?"
-    options = ["Open", "rename", "Un-favourite", "Back to menu"]
+    options = ["Open", "rename", "(Un)favourite", "Back to menu"]
     choice = PROMPT.select(list_message, options)
     case options.index(choice)
     when 0
@@ -38,7 +42,11 @@ class Article < ActiveRecord::Base
      when 1
        self.name_article
      when 2
-       self.delete
+        if CLI.active_user.articles.include?(self)
+          self.delete
+        else
+          self.save_article
+        end
      when 3
        CLI.options
     end
@@ -51,6 +59,7 @@ class Article < ActiveRecord::Base
     puts "What title would you like to give this article"
     title = gets.chomp
     self.users_title = title
+    self.save
 
   end
 
