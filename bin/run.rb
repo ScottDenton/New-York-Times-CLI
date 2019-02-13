@@ -4,26 +4,24 @@ require 'pry'
 require 'launchy'
 
 
+# search = CLI::Search.search_loop
+# query = Query.build_query(search)
+# json = Query.request(query)
+# parsed = Query.parse(json)
+# articles = parsed["response"]["docs"]
+# puts JSON.pretty_generate articles.first
 
-search = CLI::Search.search_loop
+# subject: "baseball, "
+# category: "Sports"
+# start_date: 20020101, end_date: 20020101)
+query = Query.build_query(subject: "Washington", category: "Politics", start_date: 20110101, end_date: 20130101)
+json = Query.request(query)
+parsed = Query.parse(json)
+articles = parsed["response"]["docs"]
+articles.each {|article| puts article["snippet"]}
+ articles.first["snippet"] #JSON.pretty_generate
 
-
-
-unless search[:start].nil?
-  date_query = "&facet_field=day_of_week&facet=true&begin_date=#{search[:start_date]}&end_date=#{search[:end_date]}"
-end
-# binding.pry
-
-  string = RestClient.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=#{search[:subject]}&api-key=#{NYT_KEY}#{date_query}")
-
-  hash = JSON.parse(string)
-
-  article = hash["response"]['docs'].first
-binding.pry
-   puts 'Snippet: ' + article['snippet']
-   puts 'URL: ' + article['web_url']
-   puts''
-   puts 'Enter "open" if you would like to open the article in your browser or "save" to save this search to your profile'
+ puts 'Enter "open" if you would like to open the article in your browser or "save" to save this search to your profile'
    open = gets.chomp.downcase
    if open == 'open'
     Launchy.open(article['web_url'])
@@ -32,3 +30,4 @@ binding.pry
   else
     puts "goodbye"
   end
+
