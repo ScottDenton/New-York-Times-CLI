@@ -23,8 +23,6 @@ class Search
           search_hash[:end_date] = dates[1]
         when 'keyword'
           search_hash[:keyword] = self.keyword_search
-        # when 'category'
-        #   search_hash[:category] = self.category_search
         else
           puts "Sorry we did not recogise your input"
         end #end of switch statement
@@ -61,15 +59,6 @@ class Search
     puts "What keyword would you like to search by ?"
     keyword = gets.chomp.downcase
   end
-
-  # def self.category_search
-  #   puts''
-  #   puts 'What category would you like to search ?'
-  #   category = gets.chomp.downcase
-  # end
-
-
-
 
 
 end

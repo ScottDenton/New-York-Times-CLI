@@ -1,8 +1,23 @@
 class CLI
-
+attr_accessor :active_user
   def self.main_loop
   end
+  @@active_user = nil
+
+  def self.active_user=(user)
+    @@active_user = user
+  end
+
+  def self.active_user
+    @@active_user
+  end
+
   def self.intro
+    if self.yes_no("Are you already a member")
+      User.login
+    else
+      User.signup_user
+    end
   end
 
   def self.help
@@ -46,7 +61,6 @@ class CLI
       parsed_article.open if self.yes_no("Open Article")
 
       parsed_article.save if self.yes_no("Save Article")
-
 
       exit if self.yes_no("Exit")
     end
