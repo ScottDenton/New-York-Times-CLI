@@ -12,6 +12,7 @@ class Search
         criteria = gets.chomp.downcase
 
         case criteria
+
           when 'headline'
           search_hash[:headline] =  self.headline_search
           when 'date'
@@ -22,6 +23,7 @@ class Search
             search_hash[:keyword] = self.keyword_search
           else
             puts "Sorry we did not recogise your input"
+
         end #end of switch statement
       end #end of if statement
     end #end of while loop
@@ -56,4 +58,5 @@ class Search
     puts "What keyword would you like to search by ?"
     keyword = CLI.gets_with_quit
   end
+
 end

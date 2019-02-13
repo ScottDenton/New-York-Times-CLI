@@ -1,7 +1,8 @@
 class CLI
-
+attr_accessor :active_user
   def self.main_loop
   end
+
 
   def self.banner
     system("clear")
@@ -22,7 +23,24 @@ class CLI
                   #    # #    # #      #    # 
                   #    # #    # ######  ####  
     BANNER
+  end 
+
+  @@active_user = nil
+
+  def self.active_user=(user)
+    @@active_user = user
   end
+
+  def self.active_user
+    @@active_user
+  end
+
+  def self.intro
+    if self.yes_no("Are you already a member")
+      User.login
+    else
+      User.signup_user
+    end
 
   def self.help
   end
@@ -73,6 +91,7 @@ class CLI
       break if self.yes_no("Exit")
     end
   end
+
 
   def self.yes_no(message)
     puts "#{message} (y/n)?"
