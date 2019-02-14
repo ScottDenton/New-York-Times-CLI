@@ -10,24 +10,30 @@ module ArticleControls
       end
     end
 
+    def show_article_options(article)
+      message = "What would you like to do with this article ?"
+      options = ["Open", "Favourite", "Next article", "Back to menu"]
+      choice = PROMPT.select(message, options)
+      case options.index(choice)
+      when 0
+         article.open
+         show_article_options(article)
+       when 1
+         article.save_article
+       when 2
+        # falls through to next article
+       when 3
+         CLI.user_options
+      end
+    end
+
     def list_articles(articles)
       for article in articles
         parsed_article = Article.parse(article)
         parsed_article.print
-        message = "What would you like to do with this article ?"
-        options = ["Open", "Favourite", "Next article", "Back to menu"]
-        choice = PROMPT.select(message, options)
-  
-        case options.index(choice)
-        when 0
-           parsed_article.open
-         when 1
-           parsed_article.save_article
-         when 2
-          # falls through to next article
-         when 3
-           CLI.user_options
-        end
+
+        self.show_article_options(parsed_article)
+
       end
     end
   end
@@ -58,11 +64,12 @@ def article_options
   end
   self.print
   list_message = "What would you like to do to your article?"
-  
+
   choice = PROMPT.select(list_message, options)
   case options.index(choice)
   when 0
       self.open
+      self.article_options
     when 1
       if CLI.active_user.articles.include?(self)
         self.delete
