@@ -4,12 +4,15 @@ class Article < ActiveRecord::Base
   serialize :search_query
 
   def print
-    system('clear')
-    puts "\tTitle: #{self.headline}\n" unless self.headline.nil?
-    puts self.snippet unless self.snippet.nil?
-    puts 'Source : ' + self.source unless self.source.nil?
-    puts 'Credit: ' + self.credit unless self.credit.nil?
-    puts ''
+    puts ""
+    puts "Title: #{self.users_title}"
+    puts "Headline: #{self.headline}\n" unless self.headline.nil?
+    puts ""
+    puts "Summary: #{self.snippet}" unless self.snippet.nil?
+    puts "Source : #{self.source}" unless self.source.nil?
+    puts ""
+    puts "Credit: #{self.credit}" unless self.credit.nil?
+    puts ""
   end
 
   def open
@@ -19,7 +22,7 @@ class Article < ActiveRecord::Base
   def self.parse(article)
     new_article = self.new()
     new_article.url ||= article['web_url']
-    new_article.snippet ||= article['snippet']
+    new_article.snippet ||= article['lead_paragraph']
     new_article.source ||= article['source']
     new_article.headline ||= article['headline']['main']
     if article['multimedia'] && article['multimedia'][1]
@@ -33,6 +36,7 @@ class Article < ActiveRecord::Base
   end
 
   def article_options
+    self.print
     list_message = "What would you like to do to your article?"
     options = ["Open", "rename", "(Un)favourite", "Back to menu"]
     choice = PROMPT.select(list_message, options)
