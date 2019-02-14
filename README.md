@@ -24,13 +24,17 @@ aesthetic
 final stuff
 
 * standardize messages/text instructions
-* prettifying
-* refactor/clean
+<!-- * prettifying -->
+<!-- * refactor/clean -->
 * comment code
-* input validation for dates
+<!-- * input validation for dates -->
 * proper readme with instructions to get auth key
 * prettify presentation
 * video demonstration
 * presentation
 
 * web scrape article
+
+
+<!-- * if incorrect query request, gives a connection error message -->
+

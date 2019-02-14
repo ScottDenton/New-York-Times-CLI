@@ -1,19 +1,12 @@
 module UserControls
+
   def self.included(base)
     base.extend(ClassMethods)
   end
 
   module ClassMethods
-    # def self.login_signup
-    #   if CLI.yes_no("Are you already a member")
-    #     self.login
-    #   else
-    #     self.signup_user
-    #   end
-    # end
-
     def login
-      message = "Welcome"
+      message = "Welcome to the New York Times Search CLI!"
       options = ["Login", "Sign up", "Exit"]
       choice = PROMPT.select(message, options)
       case options.index(choice)
@@ -63,16 +56,6 @@ module UserControls
 
   end #end of class modules
 
-  # def list_own_articles
-  #   CLI.active_user.reload
-  #   CLI.active_user.articles.map do |article|
-  #     article.print
-  #     article.open if CLI.yes_no("Open Article")
-  #     article.delete if CLI.yes_no("Un-Favourite this Article")
-  #   end
-  #   CLI.options
-  # end
-
   def list
     CLI.active_user.reload
     message = "Which article would you like to open"
@@ -86,8 +69,14 @@ module UserControls
 
   def list_articles(articles, message)
     options = articles.map{|article| article.users_title}
+    back = "Back to Main Menu"
+    options << back
     choice = PROMPT.select(message, options)
-    articles[options.index(choice)].article_options
+    if choice == back
+      CLI.user_options 
+    else
+      articles[options.index(choice)].article_options
+    end
   end
 
   def list_empty
@@ -103,8 +92,8 @@ module UserControls
   end
 
   def all_other_articles
+
     CLI.active_user.reload
-    # binding.pry
     users_articles = CLI.active_user.articles.map{|article| article.id}
     all_articles = Article.all.map{|article| article.id}
     uniq = all_articles - users_articles
@@ -115,11 +104,6 @@ module UserControls
       message = "Which article would you like to open"
       self.list_articles(articles, message )
     end
+
   end
-
-
-
-
-
-
 end

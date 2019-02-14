@@ -28,9 +28,4 @@ class View
     puts self.banner
     puts ""
   end
-
-  def self.header
-    puts "Welcome to the NYT CLI Search!"
-    puts "Type 'quit' at any time to exit."
-  end
 end

@@ -12,7 +12,6 @@ class CLI
 
   def self.intro
     View.banner
-    View.header
     User.login
     self.user_options
   end
@@ -28,10 +27,6 @@ class CLI
     case options.index(choice)
       when 0 then Search.new_search
       when 1 then self.active_user.list
-        # case options.index(choice)
-        #   when 0 then Search.new_search
-        #   when 1 then self.user_options
-        # end
       when 2 then self.active_user.all_other_articles
       when 3 then self.intro # switch users
     end

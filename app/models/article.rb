@@ -23,4 +23,9 @@ class Article < ActiveRecord::Base
     self.save
   end
 
+  def favourite_article
+    self.users << CLI.active_user
+    self.save
+  end
+
 end# end of class

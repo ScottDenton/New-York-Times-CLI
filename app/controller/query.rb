@@ -27,13 +27,20 @@ class Query
     begin
       RestClient::Request.execute(:method => :get, :url => request, :timeout => 5, :open_timeout => 5)
     rescue => e
-      puts ''
-      message = "There appears to be a problem with your connection"
+
+      if e.class == RestClient::BadRequest
+        message = 'Your search request was invalid. Please try again.'
+      elsif e.class == SocketError
+        message = "There appears to be a problem with your connection"
+      else
+        binding.pry
+      end
+
       options = ["Try again", "Exit to menu"]
       choice = PROMPT.select(message, options)
 
       case options.index(choice)
-        when 0 then self.request(query)
+        when 0 then Search.new_search
         when 1 then CLI.user_options
       end
     end

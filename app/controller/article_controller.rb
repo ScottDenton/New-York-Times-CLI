@@ -51,22 +51,25 @@ def open
 end
 
 def article_options
+  if CLI.active_user.articles.include?(self)
+    options = ["Open", "Unfavourite", "Back to menu"]
+  else
+    options = ["Open", "Favourite", "Back to menu"]
+  end
   self.print
   list_message = "What would you like to do to your article?"
-  options = ["Open", "rename", "(Un)favourite", "Back to menu"]
+  
   choice = PROMPT.select(list_message, options)
   case options.index(choice)
   when 0
       self.open
     when 1
-      self.name_article
-    when 2
       if CLI.active_user.articles.include?(self)
         self.delete
       else
-        self.save_article
+        self.favourite_article
       end
-    when 3
+    when 2
       CLI.user_options
   end
     CLI.user_options
