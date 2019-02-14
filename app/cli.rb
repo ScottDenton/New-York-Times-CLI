@@ -10,8 +10,6 @@ class CLI
     @@active_user
   end
 
-  
-
   def self.intro
     View.banner
     View.header
@@ -45,10 +43,20 @@ class CLI
     for article in articles
       parsed_article = Article.parse(article)
       parsed_article.print
-      parsed_article.open if self.yes_no("Open Article")
-      parsed_article.save_article if self.yes_no("Favorite Article")
+      message = "What would you like to do with this article ?"
+      options = ["Open", "favourite", "Next article", "Back to menu"]
+      choice = PROMPT.select(message, options)
 
-      break if self.yes_no("Exit")
+      case options.index(choice)
+      when 0
+         parsed_article.open
+       when 1
+         parsed_article.save_article
+       when 2
+        # falls through to next article
+       when 3
+         self.user_options
+      end
     end
   end
 

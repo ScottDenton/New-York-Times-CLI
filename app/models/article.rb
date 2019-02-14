@@ -4,14 +4,15 @@ class Article < ActiveRecord::Base
   serialize :search_query
 
   def print
+    system("clear")
     puts ""
-    puts "Title: #{self.users_title}"
-    puts "Headline: #{self.headline}\n" unless self.headline.nil?
+    puts "Title:".green.bold +  " #{self.users_title}" unless self.users_title.nil?
+    puts "Headline:".green.bold +  " #{self.headline}\n" unless self.headline.nil?
     puts ""
-    puts "Summary: #{self.snippet}" unless self.snippet.nil?
-    puts "Source : #{self.source}" unless self.source.nil?
+    puts "Summary:".green.bold +  " #{self.snippet}" unless self.snippet.nil?
+    puts "Source : ".green.bold +  "#{self.source}" unless self.source.nil?
     puts ""
-    puts "Credit: #{self.credit}" unless self.credit.nil?
+    puts "Credit:".green.bold +  " #{self.credit}" unless self.credit.nil?
     puts ""
   end
 
@@ -29,10 +30,6 @@ class Article < ActiveRecord::Base
       new_article.credit ||= article['multimedia'][1]['credit']
     end
     new_article
-  end
-
-  def display_article
-
   end
 
   def article_options

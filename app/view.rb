@@ -1,3 +1,4 @@
+
 class View
   def self.banner
     system("clear")
@@ -20,7 +21,7 @@ class View
                         #    # #    # ######  ####
 
     BANNER
-    puts banner
+    puts banner.light_green
   end
 
   def self.new_page

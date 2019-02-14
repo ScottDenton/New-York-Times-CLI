@@ -16,6 +16,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (7.1.4)
     coderay (1.1.1)
+    colorize (0.8.1)
     concurrent-ruby (1.0.5)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
@@ -82,6 +83,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  colorize
   launchy
   pry
   require_all
