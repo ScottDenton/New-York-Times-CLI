@@ -15,13 +15,14 @@ instructions to receive API key
 
 link to video ===
 
-instructions to use ? 
+instructions to use ?
 
 
 aesthetic
 
 
 final stuff
+* click already a member when not- crash 
 * rescue around api request - no internet
 * standardize messages/text instructions
 * prettifying

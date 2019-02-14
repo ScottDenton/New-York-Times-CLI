@@ -74,9 +74,11 @@ class User < ActiveRecord::Base
     self.all.any?{|user| user.name == name}
   end
 
-  def self.signup_user
+  def self.signup_user(name=nil)
+    if name.nil?
     puts "Please enter your name to signup"
     name = CLI.gets_with_quit
+  end 
     if self.check_login(name)
       puts "Sorry that name is already taken :("
       self.signup_user
@@ -89,8 +91,17 @@ class User < ActiveRecord::Base
   def self.login
     puts "Please enter your name"
     name = CLI.gets_with_quit
-    user = self.find_user(name)
-    CLI.active_user = user
+    if self.check_login(name)
+      user = self.find_user(name)
+      CLI.active_user = user
+    else
+      puts "Sorry it does not appear we have a member with that name"
+      if CLI.yes_no("Would you like to sign up")
+        self.signup_user(name)
+      else
+        CLI.intro
+      end
+    end
   end
 
 end
