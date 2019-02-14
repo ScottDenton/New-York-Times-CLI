@@ -23,9 +23,20 @@ class Query
   def self.request(query)
     base = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q="
     request = "#{base}#{query}&api-key=#{NYT_KEY}"
-    # binding.pry
-    # RestClient.get(request)
-    RestClient::Request.execute(:method => :get, :url => request, :timeout => 5, :open_timeout => 5)
+
+    begin
+      RestClient::Request.execute(:method => :get, :url => request, :timeout => 5, :open_timeout => 5)
+    rescue => e
+      puts ''
+      message = "There appears to be a problem with your connection"
+      options = ["Try again", "Exit to menu"]
+      choice = PROMPT.select(message, options)
+
+      case options.index(choice)
+        when 0 then self.request(query)
+        when 1 then CLI.user_options
+      end
+    end
   end
 
   def self.parse(json)
