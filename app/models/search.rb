@@ -1,6 +1,6 @@
 class Search
   def self.build_search
-    CLI.new_page
+    View.new_page
     search_hash = {}
     search_hash[:subject] = self.subject
     while true
@@ -35,21 +35,21 @@ class Search
   end #end of search class
 
   def self.subject
-    CLI.new_page
+    View.new_page
     puts''
       puts "What subject would you like to search for?"
       subject = CLI.gets_with_quit
   end
 
   def self.headline_search
-    CLI.new_page
+    View.new_page
     puts''
     puts 'What headline would you like to search for?'
     headline = CLI.gets_with_quit
   end
 
   def self.date_search
-    CLI.new_page
+    View.new_page
     puts''
     puts "What start date would you like? yyyymmdd"
     start_date = CLI.gets_with_quit
@@ -60,14 +60,14 @@ class Search
   end
 
   def self.keyword_search
-    CLI.new_page
+    View.new_page
     puts''
     puts "What keyword would you like to search by?"
     keyword = CLI.gets_with_quit
   end
 
   def self.category_search
-    CLI.new_page
+    View.new_page
     puts''
     puts "What category would you like to search within?"
     self.list_topics

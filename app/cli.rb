@@ -1,39 +1,6 @@
 class CLI
 
-@@active_user = nil
-
-  def self.banner
-    system("clear")
-    <<-BANNER
-
-          #     #                  #     #
-          ##    # ###### #    #     #   #   ####  #####  #    #
-          # #   # #      #    #      # #   #    # #    # #   #
-          #  #  # #####  #    #       #    #    # #    # ####
-          #   # # #      # ## #       #    #    # #####  #  #
-          #    ## #      ##  ##       #    #    # #   #  #   #
-          #     # ###### #    #       #     ####  #    # #    #
-
-                     #######
-                        #    # #    # ######  ####
-                        #    # ##  ## #      #
-                        #    # # ## # #####   ####
-                        #    # #    # #           #
-                        #    # #    # #      #    #
-                        #    # #    # ######  ####
-
-    BANNER
-  end
-
-  def self.new_page
-    puts self.banner
-    puts ""
-  end
-
-  def self.header
-    puts "Welcome to the NYT CLI Search!"
-    puts "Type 'quit' at any time to exit."
-  end
+  @@active_user = nil
 
   def self.active_user=(user)
     @@active_user = user
@@ -43,21 +10,13 @@ class CLI
     @@active_user
   end
 
-  def self.login_signup
-    if self.yes_no("Are you already a member")
-      User.login
-    else
-      User.signup_user
-    end
-  end
-
+  
 
   def self.intro
-    puts self.banner
-    self.header
-    self.login_signup
-    self.options
-    # self.start
+    View.banner
+    View.header
+    User.login_signup
+    self.user_options
   end
 
   def self.gets_with_quit
@@ -69,8 +28,9 @@ class CLI
     end
   end
 
-  def self.start
-    self.new_page
+  def self.search
+    View.new_page
+
     search = Search.build_search
     query = Query.build_query(search)
     json = Query.request(query)
@@ -78,7 +38,7 @@ class CLI
     articles = parsed["response"]["docs"]
 
     self.list_articles(articles)
-    self.options
+    self.user_options
   end
 
   def self.list_articles(articles)
@@ -86,14 +46,13 @@ class CLI
       parsed_article = Article.parse(article)
       parsed_article.print
       parsed_article.open if self.yes_no("Open Article")
-      parsed_article.save_article if self.yes_no("favourited Article")
+      parsed_article.save_article if self.yes_no("Favorite Article")
 
       break if self.yes_no("Exit")
     end
   end
 
   def self.yes_no(message)
-    # self.new_page
     puts "#{message} (y/n)?"
     response = CLI.gets_with_quit
     if response =~ /y|yes/
@@ -106,35 +65,29 @@ class CLI
     end
   end
 
-  def self.options
+  def self.user_options
     CLI.active_user.reload
-    self.new_page
-    message = "What would you like to do. "
-    options = ["Search","Favourited articles", "Other articles"]
+    View.new_page
+
+    message = "What would you like to do."
+    options = ["Search","Favourited Articles", "Other Articles", "Logout"]
     choice = PROMPT.select(message,options)
+
     case options.index(choice)
-    when 0
-       self.start
-     when 1
-        self.active_user.list unless self.active_user.articles.empty?
-        message =  "Sorry there are currently no saved articles. Have a search to find some new ones"
-        options = ["Go to search", "Go back"]
-        choice = PROMPT.select(message, options)
+      when 0 then self.search
+      when 1
+        self.active_user.list
         case options.index(choice)
-        when 0
-          self.start
-        when 1
-          self.options
-        end
-     when 2
-       self.active_user.all_other_articles
-     when 'exit' || 'quit'
-       exit
-     else
-       puts "Sorry we did not recognise your input"
-       self.options
-     end
-     self.options
+          when 0
+            self.search
+          when 1
+            self.user_options
+          end
+      when 2
+        self.active_user.all_other_articles
+      when 3 then self.intro # switch users
+    end
+    self.user_options
   end
 
 end #end of CLI class

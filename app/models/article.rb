@@ -48,9 +48,9 @@ class Article < ActiveRecord::Base
           self.save_article
         end
      when 3
-       CLI.options
+       CLI.user_options
     end
-     CLI.options
+     CLI.user_options
    end
 
 
