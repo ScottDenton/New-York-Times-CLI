@@ -54,8 +54,6 @@ class Article < ActiveRecord::Base
      CLI.user_options
    end
 
-
-
   def name_article
     puts "What title would you like to give this article"
     title = gets.chomp
@@ -78,4 +76,4 @@ class Article < ActiveRecord::Base
   end
 
 
-  end# end of class
+end# end of class

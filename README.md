@@ -3,36 +3,22 @@ Data provided by The New York Times https://developer.nytimes.com.
 
 
 
-
-To do list
-
-  - change snippet to lead paragraph
-  - flesh out user and user articles class
-  - open saved articles
-  - remove/edit saved articles
-
-Bonus stuff
-  - prettifying input
-  - gems for menus etc
-
-
-* input validation for dates
-
-
-* error handling, unsuccessful API request
+link to get started https://developer.nytimes.com/get-started
 
 
 aesthetic
-* intro page with ASCII art
+
 
 final stuff
-* gitignore schema
+* rescue around api request - no internet
+* standardize messages/text instructions
 * prettifying
 * refactor/clean
 * comment code
-* proper readme
+* input validation for dates
+* proper readme with instructions to get auth key
 * prettify presentation
-
+* video demonstration
+* presentation
 
 * web scrape article
-* test cases?
