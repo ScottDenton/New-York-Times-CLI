@@ -1,4 +1,4 @@
-module UsersModule
+module UserControls
   def self.included(base)
     base.extend(ClassMethods)
   end
