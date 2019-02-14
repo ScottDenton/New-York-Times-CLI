@@ -6,7 +6,7 @@ module UserControls
 
   module ClassMethods
     def login
-      message = "Welcome to the New York Times Search CLI!"
+      message = "Welcome!"
       options = ["Login", "Sign up", "Exit"]
       choice = PROMPT.select(message, options)
       case options.index(choice)
