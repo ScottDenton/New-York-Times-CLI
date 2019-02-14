@@ -15,7 +15,7 @@ module ArticleControls
         parsed_article = Article.parse(article)
         parsed_article.print
         message = "What would you like to do with this article ?"
-        options = ["Open", "favourite", "Next article", "Back to menu"]
+        options = ["Open", "Favourite", "Next article", "Back to menu"]
         choice = PROMPT.select(message, options)
   
         case options.index(choice)
