@@ -12,7 +12,7 @@ module ArticleControls
 
     def show_article_options(article)
       message = "What would you like to do with this article ?"
-      options = ["Open", "favourite", "Next article", "Back to menu"]
+      options = ["Open", "Favourite", "Next article", "Back to menu"]
       choice = PROMPT.select(message, options)
       case options.index(choice)
       when 0
@@ -31,7 +31,9 @@ module ArticleControls
       for article in articles
         parsed_article = Article.parse(article)
         parsed_article.print
+
         self.show_article_options(parsed_article)
+
       end
     end
   end

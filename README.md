@@ -1,40 +1,23 @@
+#NEW YORK TIMES SEACH CLI
+
+A Command Line Interface based search of the New York Times articles 
+database using the NYT Search Articles API. Allows a user to search,
+open, and favorite articles, as well as favorite the artcles saved
+by other users.
+
+Uses the `tty-prompt` gem to enhance the CLI interactivity, and includes
+error handling for malformed dates, internet connection interruptions,
+and invalid API queries.
 
 Data provided by The New York Times https://developer.nytimes.com.
 
+link to video ===
 
-
-link to get started https://developer.nytimes.com/get-started
-instructions to receive API key
-
-1) sign up for api through link
-2) create new file called `.keys.rb` within config folder - don't forget the `.` at the start
-3) Save API key to constant called `NYT_KEY`. Make sure it is exactly as written.
+##Installation
+1) Sign up for api at https://developer.nytimes.com/get-started
+2) Create file called `.keys.rb` within config folder: `./config/.keys.rb`
+3) In `.keys.rb`, save API key to `NYT_KEY = -insert-api-key-here`
 4) From terminal run `bundle install`
 5) From terminal run `rake db:migrate`
 6) From terminal run `ruby bin/run.rb`
-
-link to video ===
-
-instructions to use ?
-
-
-aesthetic
-
-
-final stuff
-
-* standardize messages/text instructions
-<!-- * prettifying -->
-<!-- * refactor/clean -->
-* comment code
-<!-- * input validation for dates -->
-* proper readme with instructions to get auth key
-* prettify presentation
-* video demonstration
-* presentation
-
-* web scrape article
-
-
-<!-- * if incorrect query request, gives a connection error message -->
 
