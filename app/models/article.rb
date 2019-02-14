@@ -2,7 +2,7 @@ class Article < ActiveRecord::Base
   include ArticlesModule
   has_many :user_articles
   has_many :users, through: :user_articles
-  serialize :search_query
+
 
   def self.parse(article)
     new_article = self.new()

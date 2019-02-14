@@ -4,7 +4,7 @@ module ArticlesModule
   end
 
   module ClassMethods
-    def self.show_all_favourited
+    def show_all_favourited
       Article.all.map do |article|
         puts article.title
       end
@@ -59,7 +59,7 @@ module ArticlesModule
        self.save
      end
 
-  
+
 
 
 
