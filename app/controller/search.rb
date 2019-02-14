@@ -9,7 +9,7 @@ class Search
     parsed = Query.parse(json)
     articles = parsed["response"]["docs"]
     if articles.empty?
-      self.no_results 
+      self.no_results
     else
       Article.list_articles(articles)
     end
@@ -20,7 +20,7 @@ class Search
     View.new_page
     search_hash = {}
     search_hash[:subject] = self.get_input_new_page("Search For")
-    
+
     while true
       puts''
       unless CLI.yes_no("Refine Search")
@@ -55,7 +55,7 @@ class Search
     print "#{message}: "
     CLI.gets_with_quit
   end
-  
+
   def self.date_search
     View.new_page
     options = ["Today", "Yesterday", "Past Week", "Date", "Date Range"]
@@ -97,7 +97,7 @@ class Search
       "Technology", "Travel", "Weather", "World"]
       choice = PROMPT.select(message, options)
   end
-  
+
   def self.gets_validate_date(message)
     print "#{message} YYYYMMDD: "
     string = CLI.gets_with_quit
@@ -110,7 +110,7 @@ class Search
     end
   end
 
-  def self.no_results 
+  def self.no_results
     message = "Sorry, No Articles Were Found"
     options = ["New Search", "Main Menu"]
     choice = PROMPT.select(message, options)
