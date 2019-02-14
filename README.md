@@ -22,7 +22,7 @@ aesthetic
 
 
 final stuff
-* click already a member when not- crash 
+
 * rescue around api request - no internet
 * standardize messages/text instructions
 * prettifying

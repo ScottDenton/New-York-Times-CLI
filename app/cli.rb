@@ -13,7 +13,7 @@ class CLI
   def self.intro
     View.banner
     View.header
-    User.login_signup
+    User.login
     self.user_options
   end
 

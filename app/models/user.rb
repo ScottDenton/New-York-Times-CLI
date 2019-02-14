@@ -74,11 +74,27 @@ class User < ActiveRecord::Base
     self.all.any?{|user| user.name == name}
   end
 
+  def self.login
+    message = "Welcome"
+    options = ["Login", "Sign up", "Exit"]
+    choice = PROMPT.select(message, options)
+
+    case options.index(choice)
+    when 0
+       self.login_user
+     when 1
+       self.signup_user
+     when 2
+       exit
+     end
+
+  end
+
   def self.signup_user(name=nil)
     if name.nil?
     puts "Please enter your name to signup"
     name = CLI.gets_with_quit
-  end 
+  end
     if self.check_login(name)
       puts "Sorry that name is already taken :("
       self.signup_user
@@ -88,7 +104,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.login
+  def self.login_user
     puts "Please enter your name"
     name = CLI.gets_with_quit
     if self.check_login(name)
