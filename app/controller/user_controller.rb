@@ -63,15 +63,15 @@ module UserControls
 
   end #end of class modules
 
-  def list_own_articles
-    CLI.active_user.reload
-    CLI.active_user.articles.map do |article|
-      article.print
-      article.open if CLI.yes_no("Open Article")
-      article.delete if CLI.yes_no("Un-Favourite this Article")
-    end
-    CLI.options
-  end
+  # def list_own_articles
+  #   CLI.active_user.reload
+  #   CLI.active_user.articles.map do |article|
+  #     article.print
+  #     article.open if CLI.yes_no("Open Article")
+  #     article.delete if CLI.yes_no("Un-Favourite this Article")
+  #   end
+  #   CLI.options
+  # end
 
   def list
     CLI.active_user.reload
@@ -96,7 +96,7 @@ module UserControls
     choice = PROMPT.select(message, options)
     case options.index(choice)
       when 0
-        CLI.search
+        Search.new_search
       when 1
         CLI.user_options
     end
