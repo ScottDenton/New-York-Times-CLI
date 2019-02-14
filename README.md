@@ -23,7 +23,6 @@ aesthetic
 
 final stuff
 
-* rescue around api request - no internet
 * standardize messages/text instructions
 * prettifying
 * refactor/clean
