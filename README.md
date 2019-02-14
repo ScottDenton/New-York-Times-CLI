@@ -2,16 +2,16 @@
 
 A Command Line Interface based search of the New York Times articles 
 database using the NYT Search Articles API. Allows a user to search,
-open, and favorite articles, as well as favorite the artcles saved
+open, and favorite articles, as well as favorite artcles saved
 by other users.
 
-Uses the `tty-prompt` gem to enhance the CLI interactivity, and includes
+Uses the `tty-prompt` gem to enhance CLI interactivity, and includes
 error handling for malformed dates, internet connection interruptions,
 and invalid API queries.
 
 Data provided by The New York Times https://developer.nytimes.com.
 
-link to video ===
+Link to video: https://vimeo.com/317361060
 
 ##Installation
 1) Sign up for api at https://developer.nytimes.com/get-started
@@ -20,4 +20,3 @@ link to video ===
 4) From terminal run `bundle install`
 5) From terminal run `rake db:migrate`
 6) From terminal run `ruby bin/run.rb`
-
