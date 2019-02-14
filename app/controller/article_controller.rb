@@ -67,6 +67,7 @@ def article_options
   case options.index(choice)
   when 0
       self.open
+      self.article_options
     when 1
       if CLI.active_user.articles.include?(self)
         self.delete
