@@ -1,10 +1,11 @@
+require 'bcrypt'
+
 class User < ActiveRecord::Base
   include UserControls
   include BCrypt
 
   has_many :user_articles
   has_many :articles, through: :user_articles
-
 
   # Loads hashed password from database
   # Instantiates BCrypt password object
