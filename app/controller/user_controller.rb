@@ -1,10 +1,19 @@
 module UserControls
 
+  # hook method which automatically includes methods
+  # defined in ClasseMethods when the parent Module is
+  # included in the User class
+  # .included : (self) -> extend UserControls::ClassMethods
   def self.included(base)
     base.extend(ClassMethods)
   end
 
+  # class Methods for User class
+  # Note: self in self.class_method_name is omitted
+  # due to conflict. Despite no reference to self in
+  # method definition, they are class methods.
   module ClassMethods
+    # .login : -> nil
     def login
       message = "Welcome!"
       options = ["Login", "Sign up", "Exit"]
@@ -19,54 +28,83 @@ module UserControls
        end
     end
 
-    def check_login(name)
+    # Checks Users for any user with given name
+    # .check_login : (String) -> Boolean
+    def user_exists(name)
       self.all.any?{|user| user.name == name}
     end
 
+    # If user exists, set as current_user and advance to user screen
+    # If user does not exist, give option to create or send back to main screen
+    # .login_user : -> nil
     def login_user
       puts "Please enter your name"
       name = CLI.gets_with_quit
-      if self.check_login(name)
+
+      if self.user_exists(name)
         user = self.find_user(name)
         CLI.active_user = user
+        # fall through to CLI.start
       else
-        puts "Sorry it does not appear we have a member with that name"
+        puts "Sorry it does not appear we have a user with that name"
         if CLI.yes_no("Would you like to sign up")
           self.signup_user(name)
         else
-          CLI.intro
+          CLI.start
         end
       end
-
     end
 
+    # Create new User if username does not exist
+    # .signup_user : (String) -> nil
     def signup_user(name=nil)
       if name.nil?
-      puts "Please enter your name to signup"
-      name = CLI.gets_with_quit
-    end
-      if self.check_login(name)
+        puts "Please enter your name to signup"
+        name = CLI.gets_with_quit
+      end
+      if self.user_exists(name)
         puts "Sorry that name is already taken :("
         self.signup_user
       else
-        user =  User.create(name: name)
+        user = User.create(name: name)
         CLI.active_user = user
       end
     end
-
   end #end of class modules
 
-  def list
+  # Lists articles favorited by current User
+  # #list_favorited_articles : -> nil
+  def list_favorited_articles
     CLI.active_user.reload
     message = "Which article would you like to open"
     articles = self.articles
     if articles.empty?
-      self.list_empty
+      self.no_articles
     else
       self.list_articles(articles, message)
     end
   end
 
+  # Lists articles which haven't been favorited by current User
+  # #list_not_favorited_articles : -> nil
+  def list_not_favorited_articles
+    CLI.active_user.reload
+    users_articles = CLI.active_user.articles.map{|article| article.id}
+    all_articles = Article.all.map{|article| article.id}
+    uniq = all_articles - users_articles
+    if uniq.empty?
+      self.no_articles
+    else
+      articles = Article.all.select{|article| uniq.include?(article.id)}
+      message = "Which article would you like to open"
+      self.list_articles(articles, message )
+    end
+  end
+
+  # Given array of articles and a message, displays articles
+  # and allows one to be selected, or the User to return to the main
+  # menu.
+  # #list_articles([Article: instances], String) -> nil
   def list_articles(articles, message)
     options = articles.map{|article| article.users_title}
     back = "Back to Main Menu"
@@ -79,7 +117,10 @@ module UserControls
     end
   end
 
-  def list_empty
+  # Method to handle event of there being no articles
+  # Allows user to Search or Return to Menu
+  # #no_articles -> nil
+  def no_articles
     message =  "Sorry, there are no results!"
     options = ["Go to Search", "Go Back"]
     choice = PROMPT.select(message, options)
@@ -89,21 +130,5 @@ module UserControls
       when 1
         CLI.user_options
     end
-  end
-
-  def all_other_articles
-
-    CLI.active_user.reload
-    users_articles = CLI.active_user.articles.map{|article| article.id}
-    all_articles = Article.all.map{|article| article.id}
-    uniq = all_articles - users_articles
-    if uniq.empty?
-      self.list_empty
-    else
-      articles = Article.all.select{|article| uniq.include?(article.id)}
-      message = "Which article would you like to open"
-      self.list_articles(articles, message )
-    end
-
   end
 end

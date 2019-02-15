@@ -1,5 +1,8 @@
 
 class View
+
+  # clears CLI display and prints Banner
+  # .banner : -> nil
   def self.banner
     system("clear")
     banner = <<-BANNER
@@ -16,6 +19,8 @@ class View
     puts banner.light_green
   end
 
+  # Used to clear page between screens
+  # .new_page : -> nil
   def self.new_page
     puts self.banner
     puts ""

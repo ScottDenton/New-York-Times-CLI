@@ -1,21 +1,29 @@
+# Namespace wrapper for search methods
 class Search
 
+  # Wraps the search build and execute sequence
+  # .new_search -> nil
   def self.new_search
-    View.new_page
+    View.new_page   # clear page & display banner
 
-    search = Search.search_criteria
-    query = Query.build_query(search)
-    json = Query.request(query)
-    parsed = Query.parse(json)
-    articles = parsed["response"]["docs"]
-    if articles.empty?
-      self.no_results
+    search = Search.search_criteria         # get user search criteria
+    query = Query.build_query(search)       # build query from criteria
+    json = Query.request(query)             # request from API
+    parsed = Query.parse(json)              # parse returned request
+    articles = parsed["response"]["docs"]   # extract articles from returned JSON
+    if articles.empty?                        # if no articles allow user to choose
+      self.no_results                         # desired path
     else
-      Article.list_articles(articles)
-    end
-    CLI.user_options
+      Article.list_articles(articles)       # if articles, display articles and allow
+    end                                     # user to open, favourite, view next
+    CLI.user_options                        # or return to main screen
   end
 
+  # Requests User input and saves to hash to be turned into
+  # API query
+  # .search_criteria : -> {subject: String, headline: String,
+  #                        start_date: String, end_date: String,
+  #                        category: String, keyword: String}
   def self.search_criteria
     View.new_page
     search_hash = {}
@@ -49,6 +57,9 @@ class Search
     search_hash
   end #end of search class
 
+  # Displays message and returns input
+  # with passthrough processing for global quit
+  # .get_input_new_page : (String) -> String
   def self.get_input_new_page(message)
     View.new_page
     puts''
@@ -56,6 +67,9 @@ class Search
     CLI.gets_with_quit
   end
 
+  # Gives user options to select dates or enter custom dates
+  # Ensures dates fit valid format
+  # .date_search : -> {start_date: String, end_date: String}
   def self.date_search
     View.new_page
     options = ["Today", "Yesterday", "Past Week", "Date", "Date Range"]
@@ -87,6 +101,9 @@ class Search
     {start_date: start_date, end_date: end_date}
   end
 
+  # Displays selection list of available categories
+  # Allows user to select from list then returns selection
+  # .category_search : -> String
   def self.category_search
     View.new_page
     message =  "What category would you like to search within?"
@@ -98,6 +115,10 @@ class Search
       choice = PROMPT.select(message, options)
   end
 
+  # Validates date is correct YYYYMMDD format
+  # if not, reprompts use for correct date
+  # returns validated date string
+  # .gets_validate_date : (String) -> String
   def self.gets_validate_date(message)
     print "#{message} YYYYMMDD: "
     string = CLI.gets_with_quit
@@ -110,6 +131,10 @@ class Search
     end
   end
 
+  # Handles event of there being no articles found
+  # after successful search. Provides user with
+  # choice to search again or return to main menu.
+  # .no_results -> nil
   def self.no_results
     message = "Sorry, No Articles Were Found"
     options = ["New Search", "Main Menu"]
