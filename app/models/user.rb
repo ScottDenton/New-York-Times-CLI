@@ -1,22 +1,28 @@
 class User < ActiveRecord::Base
   include UserControls
+  include BCrypt
+
   has_many :user_articles
   has_many :articles, through: :user_articles
 
 
-   include BCrypt
+  # Loads hashed password from database
+  # Instantiates BCrypt password object
+  # and returns. BCrypt object allows == comparison
+  # #get_password : -> BCrypt Password: Instance
+  def get_password
+    self.reload
+    Password.new(self.password)
+  end
 
-   def get_password
-       @password_hash ||= Password.new(password)
-     end
+  # Hashes string and saves to user record on db
+  # #set_password= : (String) -> User: instance
+  def set_password=(new_password)
+    self.password = Password.create(new_password)
+    self.save
+  end
 
-     def set_password=(new_password)
-       @password_hash = Password.create(new_password)
-       self.password = @password_hash
-     end
-
-
-
+  # .find_user : (String) -> User: instance
   def self.find_user(name)
     self.all.find{|user| user.name == name}
   end

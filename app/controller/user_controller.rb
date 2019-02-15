@@ -45,14 +45,14 @@ module UserControls
         user = self.find_user(name)
         if check_password(user)
           CLI.active_user = user
+          # fall through to CLI.start
         else
           CLI.start
         end
 
-        # fall through to CLI.start
       else
-        puts "Sorry it does not appear we have a user with that name"
-        if CLI.yes_no("Would you like to sign up")
+        puts "Sorry, User not found!"
+        if CLI.yes_no("Sign Up")
           self.signup_user(name)
         else
           CLI.start
@@ -60,24 +60,24 @@ module UserControls
       end
     end
 
+    # checks password against hashed password
+    # gives user 3 tries then returns to main menu
+    # #check_password : (User: instance) -> Boolean
     def check_password(user)
       counter = 0
       while counter < 3
-        password = PROMPT.mask("Enter your password")
+        password = PROMPT.mask("Enter your password:")
 
-        if user.password == password
+        if user.get_password == password
           return true
         else
-          puts "Wrong password please try again"
-          puts "You have #{2 - counter} chance(s) left before you will be sent to the welcome page."
-          counter +=1
+          puts "Incorrect Password. Please try again."
+          puts "You have #{2 - counter} attempt#{counter == 1 ? "" : "s"} left."
+          counter += 1
         end
       end
       return false
     end
-
-
-
 
     # Create new User if username does not exist
     # .signup_user : (String) -> nil
@@ -85,7 +85,6 @@ module UserControls
       if name.nil?
         puts "Please enter your name to signup"
         name = CLI.gets_with_quit
-
       end
       if self.user_exists(name)
         message =  "Sorry that name is already taken :("
@@ -97,12 +96,10 @@ module UserControls
           when 2 then CLI.start
         end
       else
-
-        password = PROMPT.mask("Enter your password")
-        user = User.create(name: name, password: password)
-
+        password = PROMPT.mask("Enter your password:")
+        user = User.create(name: name)
+        user.set_password = password
         CLI.active_user = user
-
       end
     end
   end #end of class modules
