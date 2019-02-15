@@ -63,8 +63,14 @@ module UserControls
         name = CLI.gets_with_quit
       end
       if self.user_exists(name)
-        puts "Sorry that name is already taken :("
-        self.signup_user
+        message =  "Sorry that name is already taken :("
+        options = [ "Go To Login", "Try Again", "Back to Main Menu"]
+        choice = PROMPT.select(message, options)
+        case options.index(choice)
+          when 0 then self.login_user
+          when 1 then self.signup_user
+          when 2 then CLI.start
+        end
       else
         user = User.create(name: name)
         CLI.active_user = user
@@ -111,7 +117,7 @@ module UserControls
     options << back
     choice = PROMPT.select(message, options)
     if choice == back
-      CLI.user_options 
+      CLI.user_options
     else
       articles[options.index(choice)].article_options
     end
