@@ -43,7 +43,12 @@ module UserControls
 
       if self.user_exists(name)
         user = self.find_user(name)
-        CLI.active_user = user
+        if check_password(user)
+          CLI.active_user = user
+        else
+          CLI.start
+        end
+
         # fall through to CLI.start
       else
         puts "Sorry it does not appear we have a user with that name"
@@ -55,12 +60,32 @@ module UserControls
       end
     end
 
+    def check_password(user)
+      counter = 0
+      while counter < 3
+        password = PROMPT.mask("Enter your password")
+
+        if user.password == password
+          return true
+        else
+          puts "Wrong password please try again"
+          puts "You have #{2 - counter} chance(s) left before you will be sent to the welcome page."
+          counter +=1
+        end
+      end
+      return false
+    end
+
+
+
+
     # Create new User if username does not exist
     # .signup_user : (String) -> nil
     def signup_user(name=nil)
       if name.nil?
         puts "Please enter your name to signup"
         name = CLI.gets_with_quit
+
       end
       if self.user_exists(name)
         message =  "Sorry that name is already taken :("
@@ -72,8 +97,12 @@ module UserControls
           when 2 then CLI.start
         end
       else
-        user = User.create(name: name)
+
+        password = PROMPT.mask("Enter your password")
+        user = User.create(name: name, password: password)
+
         CLI.active_user = user
+
       end
     end
   end #end of class modules
