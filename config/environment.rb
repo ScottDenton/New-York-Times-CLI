@@ -3,7 +3,6 @@ Bundler.require
 
 require 'launchy'
 require 'tty-prompt'
-require 'bcrypt'
 require 'nokogiri'
 require 'httparty'
 require 'pry'

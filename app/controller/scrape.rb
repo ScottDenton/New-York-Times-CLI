@@ -1,7 +1,3 @@
-require 'nokogiri'
-require 'httparty'
-require 'pry'
-
 class Scrape
 
   # Scrapes a given webpage and returns a Nokogiri instance
