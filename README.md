@@ -30,7 +30,7 @@ i.e. `NYT_KEY = -insert-api-key-here-`
 
 ##Usage
 
-Watch this [video](https://vimeo.com/317361060) for an brief run down on how to use the NYT CLI.
+Watch this [video](https://vimeo.com/317375613) for a brief run down on how to use the NYT CLI.
 
 
 ##Credits
