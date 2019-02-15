@@ -55,12 +55,13 @@ module ArticleControls
 # existence before printing
 # #print : -> nil
 def print
+  snippet = Scrape.snippet(self.url)
   system("clear")
   puts ""
   puts "Title:    ".green.bold + self.users_title  unless self.users_title.nil?
   puts "Headline: ".green.bold + self.headline     unless self.headline.nil?
   puts ""
-  puts "Summary:  ".green.bold + self.snippet      unless self.snippet.nil?
+  puts "Summary:  ".green.bold + snippet           unless snippet.empty?
   puts "Source:   ".green.bold + self.source       unless self.source.nil?
   puts ""
   puts "Credit:   ".green.bold + self.credit       unless self.credit.nil?
